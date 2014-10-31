@@ -20,6 +20,8 @@ gem 'airbrake', '~> 4.1.0'
 gem 'jquery-rails'
 gem 'uglifier'
 gem 'sidekiq'
+gem 'metric_fu', '~> 4.11.1'
+gem 'simplecov', '~> 0.9.1'
 
 platforms :jruby do
   gem 'jbundler'

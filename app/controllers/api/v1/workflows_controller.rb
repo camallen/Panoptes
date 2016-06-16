@@ -43,9 +43,19 @@ class Api::V1::WorkflowsController < Api::ApiController
   private
 
   def context
+    context = { languages: current_languages }
     case action_name
-    when "show", "index"
-      { languages: current_languages }
+    when "show"
+      context
+    when "index"
+      if fields = params["fields"]
+        attrs = ([:id] | fields).map(&:to_sym)
+        exclude_keys = WorkflowSerializer.serializable_attributes.except(*attrs).keys
+        context.merge!(fields: true).tap do |c|
+          exclude_keys.map { |k| c["include_#{k}?".to_sym] = false }
+        end
+      end
+      context
     else
       {}
     end

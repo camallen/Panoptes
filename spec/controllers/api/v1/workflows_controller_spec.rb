@@ -64,6 +64,21 @@ describe Api::V1::WorkflowsController, type: :controller do
         end
       end
     end
+
+    describe "fields" do
+      let(:index_options) { { fields: [:display_name, :completeness, :finished_at] } }
+      let(:field_attributes) do
+        ["id", "display_name", "completeness", "finished_at"]
+      end
+
+      it "should return only serialise the requested field data" do
+        workflow
+        get :index, index_options
+        field_keys = json_response[api_resource_name].map(&:keys).uniq.flatten
+        expected_attrs = field_attributes | ["links"]
+        expect(field_keys).to match_array(expected_attrs)
+      end
+    end
   end
 
   describe '#update' do

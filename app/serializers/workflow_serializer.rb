@@ -25,6 +25,14 @@ class WorkflowSerializer
     links
   end
 
+  def add_links(model, data)
+    if @context[:fields]
+      data.merge!(links: {})
+    else
+      super(model, data)
+    end
+  end
+
   def version
     "#{@model.current_version_number}.#{content_version}"
   end

@@ -10,6 +10,10 @@ module Subjects
     end
 
     def select
+      # TODO move this from pluck which will bring back a lot of records
+      # to just a straight limit selection on the focus window?
+      # it'll not be as random but it won't stress the database as much
+      # proper random selection can be done using cellect / designator
       ids = available_scope.pluck(:id).sample(limit)
       if reassign_random?
         RandomOrderShuffleWorker.perform_async(ids)
@@ -32,9 +36,11 @@ module Subjects
     end
 
     def focus_window_random_sample
-      available
-        .order(random: [:asc, :desc].sample)
-        .limit(focus_set_window_size)
+      # maybe instead just do
+      # available
+      #  .order(random: [:asc, :desc].sample)
+      #  .limit(limit*(1,2,5,10).sample) # or just a min of a 100
+      available.order(random: [:asc, :desc].sample).limit(focus_set_window_size)
     end
 
     def focus_set_window_size

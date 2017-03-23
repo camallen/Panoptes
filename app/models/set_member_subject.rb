@@ -41,6 +41,9 @@ class SetMemberSubject < ActiveRecord::Base
   end
 
   def self.by_workflow(workflow)
+    # TODO: can we move these joins to sub selects on the
+    # e.g. find all the set_ids for the worfklow and do the index scan on them
+    # i don't think is a major issue but may be faster
     joins(:workflows).where(workflows: {id: workflow.id})
   end
 

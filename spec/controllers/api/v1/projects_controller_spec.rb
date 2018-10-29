@@ -299,7 +299,7 @@ describe Api::V1::ProjectsController, type: :controller do
           end
         end
 
-        context "when the serializer model is polymorphic" do
+        context "when the serializer model is polymorphic", :focus do
           let(:includes) { "owners" }
 
           it "should include the owners in the response as linked" do

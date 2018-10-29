@@ -2,6 +2,8 @@ module Serialization
   module PanoptesRestpack
     extend ActiveSupport::Concern
 
+    OWNER_RELATION_KEY = [ :owners ].freeze
+
     included do
       include RestPack::Serializer
       include InstanceMethodOverrides
@@ -46,8 +48,21 @@ module Serialization
       private
 
       def param_preloads(params)
-        return [] unless params[:include]
-        Array.wrap(params[:include].split(',').map(&:to_sym) & self.can_includes)
+        if params[:include]
+          param_include_relations = params[:include].split(',').map do |include|
+            include_symbol = include.to_sym
+            # return the custom preload instead of the owners include param
+            if include_symbol == :owners
+              [ owner: { identity_membership: :user } ]
+            else
+              include_symbol
+            end
+          end
+          includable_relations = param_include_relations & can_includes
+          Array.wrap(includable_relations)
+        else
+          []
+        end
       end
 
       def page_href(page, options)

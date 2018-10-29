@@ -58,6 +58,7 @@ class ProjectSerializer
     if context[:cards]
       scope.preload(:avatar)
     elsif !preload_relations.empty?
+      binding.pry
       scope.preload(*preload_relations)
     end
   end
@@ -106,12 +107,5 @@ class ProjectSerializer
     content = @model.primary_content.attributes.with_indifferent_access
     content.default = ""
     @content = content.slice(*CONTENT_FIELDS)
-  end
-
-  # This method is overridden from PanoptesRestpack to ignore "owners".
-  # Owners is a special non-ActiveRecord relation that we support via
-  # can_include, but we can't preload it via AR/SQL.
-  def self.param_preloads(params)
-    super - [:owners]
   end
 end

@@ -11,7 +11,7 @@ describe ProjectSerializer do
     s
   end
 
-  it "should preload the serialized associations ny default" do
+  it "should preload the serialized associations by default", :focus do
     expect_any_instance_of(Project::ActiveRecord_Relation)
       .to receive(:preload)
       .with(*ProjectSerializer.preloads)

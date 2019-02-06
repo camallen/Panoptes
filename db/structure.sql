@@ -1590,7 +1590,8 @@ CREATE TABLE public.users (
     tsv tsvector,
     upload_whitelist boolean DEFAULT false NOT NULL,
     ux_testing_email_communication boolean DEFAULT false,
-    intervention_notifications boolean DEFAULT true
+    intervention_notifications boolean DEFAULT true,
+    minor boolean DEFAULT false
 );
 
 
@@ -4403,4 +4404,6 @@ INSERT INTO schema_migrations (version) VALUES ('20181022172507');
 INSERT INTO schema_migrations (version) VALUES ('20181023130028');
 
 INSERT INTO schema_migrations (version) VALUES ('20181203164038');
+
+INSERT INTO schema_migrations (version) VALUES ('20190206142318');
 

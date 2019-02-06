@@ -76,7 +76,13 @@ RSpec.describe UserSerializer do
       UserSerializer.single({}, User.where(id: user.id), context)
     end
     let(:private_attrs) do
-      UserSerializer::ME_ONLY_ATTRS - ["login_prompt"]
+      %w(
+        email languages global_email_communication
+        project_email_communication beta_email_communication
+        uploaded_subjects_count subject_limit admin zooniverse_id
+        upload_whitelist valid_email ux_testing_email_communication
+        intervention_notifications banned minor
+      )
     end
 
     context "when i am the permitted requester" do

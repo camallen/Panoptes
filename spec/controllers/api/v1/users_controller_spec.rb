@@ -387,6 +387,10 @@ describe Api::V1::UsersController, type: :controller do
       expect(result).to eq(user.upload_whitelist)
     end
 
+    it "should have the minor setting for the user" do
+      expect(user_response["minor"]).to eq(false)
+    end
+
     it_behaves_like "an api response"
   end
 
@@ -476,6 +480,23 @@ describe Api::V1::UsersController, type: :controller do
         it "doesn't send an email to the new address if user is not valid" do
           expect(UserInfoChangedMailerWorker).to_not receive(:perform_async).with(user.id, "email")
         end
+      end
+    end
+
+    context "when changing email" do
+      let(:put_operations) { { users: { minor: true}} }
+
+      it "should return 200 status" do
+        update_request
+        expect(response).to have_http_status(:ok)
+      end
+
+      it "should update the minor age attribute" do
+        expect {
+          update_request
+        }.to change {
+          user.reload.minor
+        }.from(false).to(true)
       end
     end
 

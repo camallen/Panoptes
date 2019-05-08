@@ -3,6 +3,9 @@ class SessionsController < Devise::SessionsController
   after_filter :set_csrf_headers, only: [:create, :destroy]
   after_filter :set_csrf_headers, only: :new, if: :json_request?
 
+  # remove session cookies set before subdomains were allowed
+  before_filter :delete_old_session
+
   def new
     respond_to do |format|
       format.html { super }
@@ -51,5 +54,10 @@ class SessionsController < Devise::SessionsController
   def set_csrf_headers
     response.headers['X-CSRF-Param'] = request_forgery_protection_token.to_s
     response.headers['X-CSRF-Token'] = form_authenticity_token.to_s
+  end
+
+  # remove the old session cookies
+  def delete_old_cookie
+    cookies.delete("_Panoptes_session")
   end
 end

@@ -14,7 +14,6 @@ Rails.application.routes.draw do
   end
 
   post '/graphql', to: 'graphql#execute'
-  mount GraphiQL::Rails::Engine, at: '/graphiql', graphql_path: '/graphql'
 
   use_doorkeeper do
     controllers authorizations: 'authorizations',

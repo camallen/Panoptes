@@ -8,13 +8,9 @@ module MediaStorage
       @bucket_name = opts[:bucket]
       @get_expiration = opts.dig(:expiration, :get) || DEFAULT_EXPIRES_IN
       @put_expiration = opts.dig(:expiration, :put) || DEFAULT_EXPIRES_IN
-      @s3 = Aws::S3::Resource.new(client: s3_client(opts))
     end
 
-    def bucket
-      @bucket ||= s3.bucket(@bucket_name)
-    end
-
+    # this will generate a location path to store data in the storage provider
     def stored_path(content_type, medium_type, *path_prefix)
       extension = get_extension(content_type)
       path = prefix.to_s
@@ -26,72 +22,24 @@ module MediaStorage
     end
 
     def get_path(path, opts={})
-      expires = expires_in(opts[:get_expires] || get_expiration)
-      if opts[:private]
-        object(path).presigned_url(:get, expires_in: expires).to_s
-      else
-        "https://#{path}"
-      end
+      "https://#{path}"
     end
 
     def put_path(path, opts={})
-      content_type = opts[:content_type]
-      expires = expires_in(opts[:put_expires] || put_expiration)
-      object(path).presigned_url(
-        :put,
-        content_type: content_type,
-        expires_in: expires,
-        acl: opts[:private] ? 'private' : 'public-read'
-      ).to_s
+      ## Removed - ensure we don't attempt to communicate with the s3 service
+      ## this will break the PFE media uploading
+
+      # this could be modified to return an upload location to an uploadable
+      # location for the credit-suisse team
     end
 
     def put_file(path, file_path, opts={})
-      upload_options = {
-        content_type: opts[:content_type],
-        acl: opts[:private] ? 'private' : 'public-read'
-      }
-      upload_options[:content_encoding] = 'gzip' if opts[:compressed]
-      if opts[:content_disposition]
-        upload_options[:content_disposition] = opts[:content_disposition]
-      end
-      object(path).upload_file(file_path, upload_options)
+    true
     end
 
-    def delete_file(path)
-      object(path).delete
-    end
-
+    ## Ensure we raise errors if we try and use the encrypted bucket
     def encrypted_bucket?
-      s3.client.get_bucket_encryption({ bucket: bucket.name })
-      true
-    rescue Aws::S3::Errors::ServerSideEncryptionConfigurationNotFoundError
       false
-    end
-
-    private
-
-    def object(path)
-      check_path(path)
-      bucket.object(path)
-    end
-
-    def expires_in(mins)
-      (mins * 60).to_i
-    end
-
-    def s3_client(opts)
-      client_opts = opts.slice(*s3_client_opts)
-      client_opts[:region] ||= ENV.fetch('AWS_REGION', 'us-east-1')
-      Aws::S3::Client.new(client_opts)
-    end
-
-    def s3_client_opts
-      %i(
-        access_key_id
-        secret_access_key
-        region
-        stub_responses
-      )
     end
   end
 end

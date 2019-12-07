@@ -26,7 +26,7 @@ RSpec.describe MediaStorage::AwsAdapter do
       expect(adapter.put_expiration).to eq(default)
     end
 
-    describe "s3 client config" do
+    describe "s3 client config", :disabled do
       it 'should set the aws config through the s3 client ' do
         expect(Aws::S3::Client)
           .to receive(:new)
@@ -88,20 +88,20 @@ RSpec.describe MediaStorage::AwsAdapter do
       it { is_expected.to match(uri_regex) }
     end
 
-    context "when the path is private" do
+    context "when the path is private", :disabled do
       subject{ adapter.get_path("subject_locations/name.jpg", private: true) }
       it_behaves_like "signed s3 url"
     end
   end
 
-  describe "#put_path" do
+  describe "#put_path", :disabled do
     let(:opts) { { private: false, content_type: "image/jpeg" } }
     subject{ adapter.put_path("subject_locations/name.jpg", opts) }
 
     it_behaves_like "signed s3 url"
   end
 
-  describe "#delete_file" do
+  describe "#delete_file", :disabled do
     let(:obj_double) { double(write: true) }
 
     before(:each) do
@@ -114,7 +114,7 @@ RSpec.describe MediaStorage::AwsAdapter do
     end
   end
 
-  describe "#put_file" do
+  describe "#put_file", :disabled do
     let(:obj_double) { double(upload_file: true) }
     let(:file_path) { "a_path.txt" }
     let(:content_type) { "text/csv" }
@@ -164,7 +164,7 @@ RSpec.describe MediaStorage::AwsAdapter do
     end
   end
 
-  describe "#encrypted_bucket?" do
+  describe "#encrypted_bucket?", :disabled do
     it "should raise an error if the bucket is not encrypted" do
       adapter.s3.client.stub_responses(
         :get_bucket_encryption,
@@ -179,7 +179,7 @@ RSpec.describe MediaStorage::AwsAdapter do
     end
   end
 
-  context "when missing an s3 object path" do
+  context "when missing an s3 object path", :disabled do
     it 'should raise an error' do
       error_message = "A storage path must be specified."
       expect do

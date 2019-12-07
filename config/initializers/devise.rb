@@ -17,24 +17,4 @@ Devise.setup do |config|
   # MAILER
   require 'devise_mailer/background_mailer'
   config.mailer = "Devise::BackgroundMailer"
-
-  # OMNIAUTH
-
-  def load_social_config
-    config = YAML.load(ERB.new(File.read(Rails.root.join('config/social.yml'))).result)
-    config[Rails.env].symbolize_keys
-  end
-
-  def social_config
-    @social_config ||= load_social_config
-  end
-
-  def omniauth_config_for(config, providers: provider)
-    providers.each do |provider|
-      conf = social_config[provider].symbolize_keys
-      config.omniauth provider, conf.delete(:app_id), conf.delete(:app_secret), **conf
-    end
-  end
-
-  omniauth_config_for(config, providers: [:facebook, :google_oauth2])
 end

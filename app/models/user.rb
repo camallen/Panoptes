@@ -13,8 +13,7 @@ class User < ActiveRecord::Base
   attr_accessor :minor_age
 
   devise :database_authenticatable, :registerable,
-    :recoverable, :rememberable, :trackable, :validatable,
-    :omniauthable, omniauth_providers: [:facebook, :google_oauth2]
+    :recoverable, :rememberable, :trackable, :validatable
 
   has_many :classifications, dependent: :restrict_with_exception
   has_many :authorizations, dependent: :destroy

@@ -9,6 +9,6 @@ class ClassificationWorker
     classification = Classification.find(id)
     ClassificationLifecycle.perform(classification, action)
   rescue ClassificationLifecycle::InvalidAction => exception
-    Honeybadger.notify(exception)
+    ## REMOVED HB CALL
   end
 end

@@ -9,10 +9,7 @@ class ClassificationHeartbeatWorker
   def perform
     if heartbeat_check? && missing_classifications?
       ClassificationHeartbeatMailer.missing_classifications(emails, window_period).deliver
-      Honeybadger.notify(
-        error_class:   "Classification data error",
-        error_message: "No classification data received for #{window_period}"
-      )
+      ## REMOVED HB CALL
     end
   end
 

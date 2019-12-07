@@ -55,14 +55,6 @@ class PasswordsController < Devise::PasswordsController
       match = params["password"] == params["password_confirmation"]
       length = params["password"].length
       #token is valid if the resource is persisted
-      Honeybadger.notify(
-        error_class:   "Reset password error",
-        error_message: "Could not reset user password",
-        context: {
-          user_id: resource_id,
-          password_match: match,
-          password_length: length
-        }
-      )
+      ## REMOVED HB CALL
     end
 end

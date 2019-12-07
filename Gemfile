@@ -18,21 +18,13 @@ gem 'faraday_middleware', '~> 0.13'
 gem 'flipper'
 gem 'flipper-active_record'
 gem 'flipper-ui'
-gem 'gelf'
-gem 'graphiql-rails'
 gem 'graphql'
-gem 'honeybadger', '~> 4.2'
 gem 'jquery-rails', '~> 4.3'
 gem 'json-schema', '~> 2.8'
-gem 'librato-metrics', '~> 2.1.2'
-gem 'logstasher', '~> 1.3'
 gem 'mime-types'
 gem 'oauth2'
 gem 'omniauth', '~> 1.9'
-gem 'omniauth-facebook', '~> 5.0'
-gem 'omniauth-google-oauth2'
 gem 'p3p', '~> 2.0'
-gem 'panoptes-client'
 gem 'pg', '~> 0.21'
 gem 'pg_search'
 gem 'puma', '~> 3.12.1'
@@ -43,9 +35,7 @@ gem 'ranked-model', '~> 0.4.1'
 gem 'restpack_serializer', github: "zooniverse/restpack_serializer", branch: "rails5" # REST API
 gem 'strong_migrations'
 gem 'schema_plus_pg_indexes', '~> 0.1'
-gem 'scientist', '~> 1.4.0'
 gem 'sdoc', '~> 1.0.0', group: :doc
-gem 'semantic_logger', '~> 4.4.0'
 gem 'sidekiq', '~> 5.2.5'
 gem 'sidekiq-congestion', '~> 0.1.0'
 gem 'sidekiq-unique-jobs'
@@ -55,11 +45,6 @@ gem 'stringex', '~> 2.8'
 gem 'therubyracer', '~> 0.12'
 gem 'uglifier', '~> 4.1'
 gem 'versionist', '~> 2.0'
-gem 'zoo_stream', '~> 1.0.1'
-
-group :production, :staging do
-  gem 'newrelic_rpm'
-end
 
 group :development, :test do
   gem "factory_bot_rails"

@@ -7,3 +7,13 @@ test:
   host: "http://example.com"
   user: 1
   application: 1
+
+staging:
+  host: "http://localhost:3000"
+  user: 1
+  application: 1
+
+production:
+  host: "http://localhost:3000"
+  user: 1
+  application: 1

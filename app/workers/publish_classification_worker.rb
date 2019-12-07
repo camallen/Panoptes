@@ -6,6 +6,8 @@ class PublishClassificationWorker
   attr_reader :classification
 
   def perform(classification_id)
+    return
+
     @classification = Classification.find(classification_id)
     if classification.complete?
       publish_to_kinesis!
@@ -23,10 +25,7 @@ class PublishClassificationWorker
   end
 
   def publish_to_kinesis!
-    ZooStream.publish(event: "classification",
-                      data: kinesis_data,
-                      linked: kinesis_linked,
-                      shard_by: [classification.workflow_id, classification.subject_ids].flatten.join("-"))
+    ## REMOVED CALL TO KINESIS STREAM PUBLISH
   end
 
   def kinesis_data

@@ -3,3 +3,9 @@ development:
 
 test:
   adapter: test
+
+staging:
+  adapter: test
+
+production:
+  adapter: test

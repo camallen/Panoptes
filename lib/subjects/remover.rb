@@ -4,7 +4,6 @@ module Subjects
 
     def initialize(subject_id, client=nil)
       @subject_id = subject_id
-      @panoptes_client = client || Panoptes::Client.new(env: Rails.env)
     end
 
     def cleanup
@@ -57,10 +56,8 @@ module Subjects
     end
 
     def has_been_talked_about?
-      panoptes_client.discussions(
-        focus_id: subject_id,
-        focus_type: 'Subject'
-      ).any?
+      # REMOVED TALK SERVER LOOKUP
+      false
     end
 
     def notify_subject_selector(workflow_ids)

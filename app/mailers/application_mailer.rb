@@ -1,4 +1,4 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: "no-reply@zooniverse.org"
+  default from: ENV.fetch('EMAIL_FROM_ADDRESS', 'no-reply@localhost')
   layout 'mailer'
 end

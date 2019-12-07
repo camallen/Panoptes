@@ -20,8 +20,6 @@ module CodeExperiments
       else
         logger.debug "science.#{experiment.name}.mismatched => #{1}"
       end
-    rescue StandardError => e
-      Honeybadger.notify(e)
     end
   end
 end

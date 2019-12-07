@@ -17,12 +17,8 @@ class CodeExperiment
   end
 
   def self.reporter
-    @reporter ||= case
-    when Rails.env.development? || Rails.env.test?
-      CodeExperiments::LogReporter.new
-    else
-      CodeExperiments::LibratoReporter.new
-    end
+    ## REMOVED THE LIBRATO REPORTER
+    @reporter ||= CodeExperiments::LogReporter.new
   end
 
   def self.reporter=(reporter)

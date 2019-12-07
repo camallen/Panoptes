@@ -4,6 +4,8 @@ class PublishRetirementEventWorker
   sidekiq_options queue: :data_high
 
   def perform(workflow_id)
+    return
+
     workflow = Workflow.includes(:project).find(workflow_id)
     counters = {
       project_id: workflow.project_id,
@@ -15,9 +17,7 @@ class PublishRetirementEventWorker
       classifications_count: workflow.classifications_count
     }
 
-    ZooStream.publish(event: 'workflow_counters',
-                      data: counters,
-                      shard_by: workflow.id)
+    ## REMOVED CALL TO KINESIS STREAM PUBLISH
   rescue ActiveRecord::RecordNotFound
   end
 end

@@ -68,11 +68,7 @@ module Api
     end
 
     def notify_honeybadger_of_unknown_event
-      Honeybadger.notify(
-        error_class:   "Legacy API Event",
-        error_message: "Unknown Legacy API Event Message Received",
-        parameters:    params
-      )
+      ## REMOVED HB CALL
     end
 
     def user_project_preference

@@ -6,6 +6,8 @@ class EmailsProjectsExportWorker
   sidekiq_options queue: :data_low
 
   def perform(project_id)
+    return
+
     project = Project.find(project_id)
     direct_to_s3 = CsvDumps::DirectToS3.new(export_type(project))
     formatter = Formatter::Csv::UserEmail.new

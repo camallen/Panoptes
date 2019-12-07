@@ -67,7 +67,7 @@ class Api::V1::SubjectsController < Api::ApiController
         SubjectRemovalWorker.perform_async(subject.id)
       end
     rescue Timeout::Error => e
-      Honeybadger.notify(e)
+      ## REMOVED HB CALL
     end
   end
 

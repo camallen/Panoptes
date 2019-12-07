@@ -1,9 +1,8 @@
 class CodeExperiment
   include ActiveModel::Model
-  include Scientist::Experiment
 
   attr_accessor :id, :name, :enabled_rate, :always_enabled_for_admins, :cached_at
-  cattr_writer :always_enabled
+  cattr_writer :always_enabled, :raise_on_mismatches
 
   def self.run(name, opts={})
     config = CodeExperimentConfig.cache_or_create(name)
@@ -43,4 +42,13 @@ class CodeExperiment
   def admin_user?
     !!context[:user]&.is_admin?
   end
+
+  ## PROVIDE THE MISSING SCIENTIST GEM PUBLIC API
+  def context(context); end
+
+  def use; end
+
+  def try; end
+
+  def run(run); end
 end

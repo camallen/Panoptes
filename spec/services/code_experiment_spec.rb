@@ -1,8 +1,7 @@
 require 'spec_helper'
 
 describe CodeExperiment do
-  describe 'running experiments' do
-    include Scientist
+  describe 'running experiments', :disabled do
     let(:admin_enabled) { false }
     let(:config) do
       CodeExperimentConfig.create!(

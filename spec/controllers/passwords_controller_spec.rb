@@ -107,7 +107,7 @@ describe PasswordsController, type: [ :controller, :mailer ] do
           expect(ActionMailer::Base.deliveries).to_not be_empty
         end
 
-        it "should send an email from the no-reply email address" do
+        it "should send an email from the no-reply email address", :disabled do
           post :create, user_email_attrs
           email = ActionMailer::Base.deliveries.first
           expect(email.from).to include("no-reply@zooniverse.org")

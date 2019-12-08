@@ -120,7 +120,7 @@ describe Api::EventsController, type: :controller do
           overridden_params(kind: "unkonwn")
         end
 
-        it "should notify honeybadger" do
+        it "should notify honeybadger", :disabled do
           expect(Honeybadger).to receive(:notify)
           post :create, unexpected_event
         end

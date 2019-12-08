@@ -332,7 +332,7 @@ RSpec.describe Formatter::Csv::AnnotationForCsv do
         expect(formatted).to eq(annotation)
       end
 
-      it 'should report to honeybadger' do
+      it 'should report to honeybadger', :disabled do
         expect(Honeybadger).to receive(:notify).with(an_instance_of(ClassificationDumpCache::MissingWorkflowVersion), context: {classification_id: classification.id})
         described_class.new(classification, annotation, cache).to_h
       end

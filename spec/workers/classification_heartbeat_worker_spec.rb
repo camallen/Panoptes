@@ -35,7 +35,7 @@ RSpec.describe ClassificationHeartbeatWorker do
           allow(worker).to receive(:heartbeat_check?).and_return(true)
         end
 
-        it 'should raise an error via honeybadger' do
+        it 'should raise an error via honeybadger', :disabled do
           expect(Honeybadger).to receive(:notify)
           worker.perform
         end
@@ -47,7 +47,7 @@ RSpec.describe ClassificationHeartbeatWorker do
     end
 
     context "when the last classification received falls inside the acceptable window" do
-      it 'should not raise an error via honeybadger' do
+      it 'should not raise an error via honeybadger', :disabled do
         expect(Honeybadger).not_to receive(:notify)
         worker.perform
       end

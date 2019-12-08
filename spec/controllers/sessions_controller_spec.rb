@@ -72,11 +72,11 @@ describe SessionsController, type: :controller do
         expect(response.status).to eq(200)
       end
 
-      it 'should return a json response of login routes' do
+      it 'should return a json response of login routes', :disabled do
         expect(json_response).to include('login', *providers)
       end
 
-      it 'should return the url for each omniauth provider' do
+      it 'should return the url for each omniauth provider', :disabled do
         expect(json_response['facebook']).to eq('/users/auth/facebook')
       end
     end

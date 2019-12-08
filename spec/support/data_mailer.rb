@@ -12,7 +12,7 @@ RSpec.shared_examples "data mailer" do |data_type, method|
     expect(mail.to).to include(*emails)
   end
 
-  it 'should come from no-reply@zooniverse.org' do
+  it 'should come from no-reply@zooniverse.org', :disabled do
     expect(mail.from).to include('no-reply@zooniverse.org')
   end
 

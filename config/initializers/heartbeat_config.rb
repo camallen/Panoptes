@@ -5,7 +5,7 @@ module Panoptes
     end
 
     def self.emails
-      @emails ||= ENV.fetch("HEARTBEAT_EMAILS", "no-reply@zooniverse.org")
+      @emails ||= ENV.fetch("HEARTBEAT_EMAILS", "no-reply@example.com")
     end
   end
 end

@@ -29,6 +29,7 @@ class ClassificationHeartbeatWorker
   end
 
   def heartbeat_check?
-    Rails.env.production?
+    return false
+    # Rails.env.production?
   end
 end

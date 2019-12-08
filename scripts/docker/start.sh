@@ -13,16 +13,8 @@ mkdir -p tmp/pids/
 rm -f tmp/pids/*.pid
 
 if [ "$RAILS_ENV" == "development" ]; then
-  bundle check || bundle install --binstubs="$BUNDLE_BIN"
   exec bundle exec foreman start
 else
-  USER_DATA=$(curl --fail http://169.254.169.254/latest/user-data || echo "")
-
-  if [ "$USER_DATA" == "EMERGENCY_MODE" ]
-  then
-    git pull
-  fi
-
   if [ ! -d public/assets ]
   then
       bundle exec rake assets:precompile

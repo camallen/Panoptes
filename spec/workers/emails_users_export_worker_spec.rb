@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe EmailsUsersExportWorker do
+describe EmailsUsersExportWorker, :disabled do
   let(:worker) { described_class.new }
   let(:users) { create_list(:user, 2) }
 

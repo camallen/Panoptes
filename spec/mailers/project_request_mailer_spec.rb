@@ -18,7 +18,7 @@ RSpec.describe ProjectRequestMailer, type: :mailer do
   end
 
   it 'should come from no-reply@zooniverse.org' do
-    expect(mail.from).to include('no-reply@zooniverse.org')
+    expect(mail.from).to include('no-reply@example.com')
   end
 
   it 'should indicate the request type in the subject' do

@@ -15,7 +15,7 @@ RSpec.describe PublishRetirementEventWorker do
     )
   end
 
-  describe "#perform" do
+  describe "#perform", :disabled do
     it "should gracefully handle a missing workflow lookup" do
       expect{
         worker.perform(-1)

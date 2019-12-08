@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe EmailsProjectsExportWorker do
+describe EmailsProjectsExportWorker, :disabled do
   let(:worker) { described_class.new }
 
   it { is_expected.to be_a Sidekiq::Worker }

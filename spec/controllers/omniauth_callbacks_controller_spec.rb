@@ -49,7 +49,7 @@ shared_examples "an omniauth callback" do
   end
 end
 
-describe OmniauthCallbacksController, type: :controller do
+describe OmniauthCallbacksController, type: :controller, disabled: true do
   before(:each) do
     request.env['devise.mapping'] = Devise.mappings[:user]
   end

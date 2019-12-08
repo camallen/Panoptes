@@ -68,7 +68,10 @@ Rails.application.configure do
   config.action_mailer.perform_deliveries = false
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = YAML.load(File.read('config/mailer.yml'))[Rails.env].symbolize_keys
-  config.action_mailer.default_url_options = { protocol: 'https', host: ENV.fetch("API_HOST_NAME", 'localhost') }
+  config.action_mailer.default_url_options = {
+    protocol: 'https',
+    host: ENV.fetch("API_HOST_NAME", 'localhost')
+  }
 
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to

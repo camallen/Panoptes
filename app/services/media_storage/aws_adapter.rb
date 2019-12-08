@@ -34,7 +34,7 @@ module MediaStorage
     end
 
     def put_file(path, file_path, opts={})
-    true
+      true
     end
 
     ## Ensure we raise errors if we try and use the encrypted bucket

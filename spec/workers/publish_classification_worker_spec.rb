@@ -4,7 +4,7 @@ RSpec.describe PublishClassificationWorker do
   let(:worker) { described_class.new }
   let(:classification) { create(:classification) }
 
-  describe "#perform" do
+  describe "#perform", :disabled do
     let(:expected_topic) { "classifications" }
 
     it "should gracefully handle a missing classification lookup" do

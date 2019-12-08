@@ -10,7 +10,7 @@ RSpec.describe DormantUserMailer, :type => :mailer do
       expect(mail.to).to include(user.email)
     end
 
-    it 'should come from no-reply@zooniverse.org' do
+    it 'should come from no-reply@zooniverse.org', :disabled do
       expect(mail.from).to include('no-reply@zooniverse.org')
     end
 

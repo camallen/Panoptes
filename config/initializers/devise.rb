@@ -1,5 +1,5 @@
 Devise.setup do |config|
-  config.mailer_sender = 'no-reply@zooniverse.org'
+  config.mailer_sender = ENV.fetch('EMAIL_FROM_ADDRESS', 'no-reply@example.com')
 
   require 'devise/orm/active_record'
 

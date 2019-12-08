@@ -38,7 +38,7 @@ end
 attrs = { admin: true,
           password: password,
           login: 'zooniverse_admin',
-          email: 'no-reply@zooniverse.org' }
+          email: 'no-reply@example.com' }
 admin = User.create(attrs) do |user|
   user.build_identity_group
 end

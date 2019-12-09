@@ -1,4 +1,14 @@
-development:
+default: &default
+  subjects: 100
 
 test:
-  subjects: 100
+  <<: *default
+
+development:
+  <<: *default
+
+staging:
+  <<: *default
+
+production:
+  <<: *default

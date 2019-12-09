@@ -3,3 +3,9 @@ development:
 
 test:
   max: 100
+
+staging: 
+  max: 100
+
+production:
+  max:100

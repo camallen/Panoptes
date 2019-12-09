@@ -5,3 +5,11 @@ development:
 test:
   sidekiq:
     host: redis
+
+staging:
+  sidekiq:
+    host: redis
+
+production:
+  sidekiq:
+    host: redis

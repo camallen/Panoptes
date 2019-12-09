@@ -24,3 +24,19 @@ test:
 test_standby:
   <<: *default
   database: panoptes_test
+
+staging:
+  <<: *default
+  database: panoptes_staging
+
+staging_standby:
+  <<: *default
+  database: panoptes_staging
+
+production:
+  <<: *default
+  database: panoptes_production
+
+production_standby:
+  <<: *default
+  database: panoptes_production

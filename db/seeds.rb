@@ -8,9 +8,18 @@
 
 FactoryBot.create :full_project
 
-Panoptes.flipper.enable(:cached_serializer)
+Panoptes.flipper.enable(:subject_uploading)
+Panoptes.flipper.enable(:classification_lifecycle_in_background)
 Panoptes.flipper.enable(:classification_counters)
 Panoptes.flipper.enable(:subject_set_statuses_create_worker)
-Panoptes.flipper.enable(:subject_uploading)
 Panoptes.flipper.enable(:subject_workflow_status_create_worker)
-Panoptes.flipper.enable(:upp_activity_count_cache)
+Panoptes.flipper.enable(:remove_orphan_subjects)
+Panoptes.flipper.enable(:selector_sync_error_reload)
+
+Panoptes.flipper.disable(:dump_worker_exports)
+Panoptes.flipper.disable(:cached_serializer)
+Panoptes.flipper.disable(:designator)
+Panoptes.flipper.disable(:cellect)
+Panoptes.flipper.disable(:export_emails)
+Panoptes.flipper.disable(:disable_lifecycle_worker)
+Panoptes.flipper.disable(:skip_subject_selection_context)

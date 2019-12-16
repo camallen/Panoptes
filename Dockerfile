@@ -2,20 +2,23 @@ FROM ruby:2.5-stretch
 
 WORKDIR /rails_app
 
+RUN echo $(grep "VERSION=" /etc/os-release | cut -d "(" -f2 | cut -d ")" -f1) | \
+    xargs -i echo "deb http://apt.postgresql.org/pub/repos/apt/ {}-pgdg main" > /etc/apt/sources.list.d/postgresql.list && \
+    wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -
+
 RUN apt-get update && \
     apt-get install --no-install-recommends -y \
         git \
         curl \
         supervisor \
         libpq-dev \
+        postgresql-client-9.5 \
         tmpreaper \
         libjemalloc1 \
         && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
 ENV LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libjemalloc.so.1
-
-RUN mkdir config && curl "https://ip-ranges.amazonaws.com/ip-ranges.json" > config/aws_ips.json
 
 ADD ./Gemfile /rails_app/
 ADD ./Gemfile.lock /rails_app/

@@ -16,6 +16,12 @@ development:
 test:
   <<: *default
 
+staging:
+  <<: *default
+
+production:
+  <<: *default
+
 #example to add more explicit origins and resources
 another_env:
   <<: *default

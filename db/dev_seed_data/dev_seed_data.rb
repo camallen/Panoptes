@@ -47,7 +47,7 @@ attrs = { admin: true,
           password: password,
           login: 'admin',
           email: 'no-reply@example.com' }
-admin = User.create(attrs) do |user|
+admin = User.create!(attrs) do |user|
   user.build_identity_group
 end
 puts "\nAdmin details:"
@@ -75,6 +75,7 @@ puts "Use the client ID above to interact with the api."
 puts "You can review these settings via the Oauth Applications page on your server at:"
 puts yellow("http(s)://<server_ip:port>/oauth/applications\n\n")
 
+puts "\nSetting up the app run time features\n"
 enabled_flipper_features = %w[
   subject_uploading
   classification_lifecycle_in_background
@@ -85,7 +86,7 @@ enabled_flipper_features = %w[
   selector_sync_error_reload
 ]
 enabled_flipper_features.each do |feature|
-  puts "Enable flipper feature: #{green(feature)}\n"
+  puts "Enable API feature: #{green(feature)}\n"
   Panoptes.flipper.enable(feature)
 end
 
@@ -99,7 +100,7 @@ disabled_flipper_features = %w[
   skip_subject_selection_context
 ]
 disabled_flipper_features.each do |feature|
-  puts "Disable flipper feature: #{red(feature)}\n"
+  puts "Disable API feature: #{red(feature)}\n"
   Panoptes.flipper.disable(feature)
 end
 

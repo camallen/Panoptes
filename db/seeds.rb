@@ -6,7 +6,9 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-FactoryBot.create :full_project
+if defined?(FactoryBot)
+    FactoryBot.create :full_project
+end
 
 Panoptes.flipper.enable(:subject_uploading)
 Panoptes.flipper.enable(:classification_lifecycle_in_background)

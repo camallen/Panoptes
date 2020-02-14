@@ -24,12 +24,16 @@ services:
     environment:
       - "RAILS_ENV=development"
       - "RAILS_LOG_TO_STDOUT=true"
+      - "RAILS_SERVE_STATIC_FILES=true"
+      - "RAILS_CACHE_CLASSES=true"
+      - "RAILS_EAGER_LOAD_CODE=true"
       - "REDIS_HOST=redis"
       - "ATTENTION_REDIS_URL=redis://redis:6379/1"
       - "DATABASE_HOST=pg"
       - "DATABASE_USERNAME=panoptes"
       - "DATABASE_PASSWORD=panoptes"
       - "DISABLE_SPRING=true"
+      - "SIDEKIQ_CONCURRENCY=1"
     links:
       - redis:redis
       - postgres:pg

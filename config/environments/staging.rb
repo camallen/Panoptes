@@ -90,9 +90,4 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
-
-  # Enable the logstasher logs for the current environment
-  config.logstasher.enabled = true
-  # Enable logging of controller params
-  config.logstasher.log_controller_parameters = true
 end

@@ -20,11 +20,13 @@ services:
       - ./:/rails_app
       - gem_cache:/usr/local/bundle
     ports:
-      - "3001:3000"
-      # - "3001:81"
+      - "3000:3000"
     environment:
       - "RAILS_ENV=development"
+      - "RAILS_LOG_TO_STDOUT=true"
+      - "REDIS_HOST=redis"
       - "ATTENTION_REDIS_URL=redis://redis:6379/1"
+      - "DATABASE_HOST=pg"
       - "DISABLE_SPRING=true"
     links:
       - redis:redis

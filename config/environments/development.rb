@@ -27,15 +27,32 @@ Rails.application.configure do
   # Raise an error on page load if there are pending migrations.
   config.active_record.migration_error = :page_load
 
-  # Debug mode disables concatenation and preprocessing of assets.
-  # This option may cause significant delays in view rendering with a large
-  # number of complex assets.
-  config.assets.debug = true
+  #### OLD DEVELOPMENT CONFIG
+  # # Debug mode disables concatenation and preprocessing of assets.
+  # # This option may cause significant delays in view rendering with a large
+  # # number of complex assets.
+  # config.assets.debug = true
 
-  # Adds additional error checking when serving assets at runtime.
-  # Checks for improperly declared sprockets dependencies.
-  # Raises helpful error messages.
-  config.assets.raise_runtime_errors = true
+  # # Adds additional error checking when serving assets at runtime.
+  # # Checks for improperly declared sprockets dependencies.
+  # # Raises helpful error messages.
+  # config.assets.raise_runtime_errors = true
+
+  #### NEW DEVELOPMENT CONFIG
+  config.serve_static_files = ENV.fetch('RAILS_SERVE_STATIC_FILES', true)
+
+  # Compress JavaScripts and CSS.
+  config.assets.js_compressor = Uglifier.new(harmony: true)
+
+  # Do not fallback to assets pipeline if a precompiled asset is missed.
+  config.assets.compile = false
+
+  # Generate digests for assets URLs.
+  config.assets.digest = true
+
+  # Version of your assets, change this if you want to expire all your assets.
+  config.assets.version = '1.0'
+  #### END NEW DEVELOPMENT CONFIG
 
   config.log_tags = [:uuid]
 

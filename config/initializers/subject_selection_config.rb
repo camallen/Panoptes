@@ -3,7 +3,7 @@ module Panoptes
     def self.config
       @config ||= begin
                     file = Rails.root.join('config/subject_selection_config.yml')
-                    YAML.load(File.read(file))[Rails.env].symbolize_keys
+                    YAML.load(ERB.new(File.read(file)).result)[Rails.env].symbolize_keys
                   rescue Errno::ENOENT, NoMethodError
                     {  }
                   end

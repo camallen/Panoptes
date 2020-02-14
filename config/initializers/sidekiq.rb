@@ -23,7 +23,8 @@ module SidekiqConfig
 
   def self.read_redis_config
     begin
-      config = YAML.load(File.read(Rails.root.join('config/redis.yml')))
+      erb_result = ERB.new(File.read(Rails.root.join('config/redis.yml'))).result
+      config = YAML.load(erb_result)
       config[Rails.env]['sidekiq'].symbolize_keys
     rescue Errno::ENOENT, NoMethodError
       { }

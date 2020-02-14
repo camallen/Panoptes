@@ -3,7 +3,7 @@ module Panoptes
     @project_request ||= OpenStruct
       .new(**begin
                file = Rails.root.join('config/project_request.yml')
-               YAML.load(File.read(file))[Rails.env].symbolize_keys
+               YAML.load(ERB.new(File.read(file).result))[Rails.env].symbolize_keys
              rescue Errno::ENOENT, NoMethodError
                { }
              end)

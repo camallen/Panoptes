@@ -67,7 +67,7 @@ Rails.application.configure do
   # config.action_mailer.raise_delivery_errors = false
   config.action_mailer.perform_deliveries = false
   config.action_mailer.delivery_method = :smtp
-  config.action_mailer.smtp_settings = YAML.load(File.read('config/mailer.yml'))[Rails.env].symbolize_keys
+  config.action_mailer.smtp_settings = YAML.load(ERB.new(File.read('config/mailer.yml').result))[Rails.env].symbolize_keys
   config.action_mailer.default_url_options = {
     protocol: 'https',
     host: ENV.fetch("API_HOST_NAME", 'localhost')

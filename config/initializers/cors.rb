@@ -4,7 +4,7 @@ module Panoptes
     @cors_config ||=OpenStruct
       .new(**begin
         file = Rails.root.join('config/cors_config.yml')
-        YAML.load(File.read(file))[Rails.env].symbolize_keys
+        YAML.load(ERB.new(File.read(file).result))[Rails.env].symbolize_keys
       rescue Errno::ENOENT, NoMethodError
         {  }
       end)

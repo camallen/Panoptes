@@ -43,4 +43,14 @@ Rails.application.configure do
   # config.action_view.raise_on_missing_translations = true
 
   config.action_mailer.preview_path = "#{Rails.root}/spec/mailers/previews"
+
+  # log to STDOUT if env var is set
+  if ENV['RAILS_LOG_TO_STDOUT'].present?
+    # rails logger for reporting data on STDOUT
+    config.logger = ActiveSupport::TaggedLogging.new(Logger.new(STDOUT))
+    # custom ActiveRecord(DB ORM) logger for avoiding noisy STDOUT logs
+    log_file = File.open(Rails.root.join('log', 'development.log'), 'a')
+    log_file.sync = true
+    ActiveRecord::Base.logger = Logger.new(log_file)
+  end
 end

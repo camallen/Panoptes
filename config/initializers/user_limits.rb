@@ -2,7 +2,7 @@ module Panoptes
   def self.user_limits
     @user_limits ||= begin
                        file = Rails.root.join('config/user_limits.yml')
-                       YAML.load(File.read(file))[Rails.env].symbolize_keys
+                       YAML.load(ERB.new(File.read(file)).result)[Rails.env].symbolize_keys
                      rescue Errno::ENOENT, NoMethodError
                        {  }
                      end

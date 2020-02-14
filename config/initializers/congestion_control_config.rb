@@ -26,7 +26,7 @@ module Panoptes
     def self.load_config
       @config ||= begin
                     file = Rails.root.join('config/congestion_control_config.yml')
-                    YAML.load(ERB.new(File.read(file).result))[Rails.env].symbolize_keys
+                    YAML.load(ERB.new(File.read(file)).result)[Rails.env].symbolize_keys
                   rescue Errno::ENOENT, NoMethodError
                     {  }
                   end

@@ -2,7 +2,7 @@ module Panoptes
   def self.frontend_configuration
     @frontend_conf ||= begin
                          file = Rails.root.join('config/frontend_redirect.yml')
-                         YAML.load(ERB.new(File.read(file).result))[Rails.env].symbolize_keys
+                         YAML.load(ERB.new(File.read(file)).result)[Rails.env].symbolize_keys
                        rescue Errno::ENOENT, NoMethodError
                          {  }
                        end

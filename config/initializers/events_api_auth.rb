@@ -3,7 +3,7 @@ module Panoptes
     def self.auth
       @events_api_auth ||= begin
                          file = Rails.root.join('config/events_api_auth.yml')
-                         YAML.load(ERB.new(File.read(file).result))[Rails.env].symbolize_keys
+                         YAML.load(ERB.new(File.read(file)).result)[Rails.env].symbolize_keys
                        rescue Errno::ENOENT, NoMethodError
                          {  }
                        end

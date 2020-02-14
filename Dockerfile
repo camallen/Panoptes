@@ -31,6 +31,8 @@ RUN bundle install
 ADD supervisord.conf.dev /etc/supervisor/conf.d/panoptes.conf
 ADD ./ /rails_app
 
+RUN RAILS_ENV=production bundle exec rake assets:precompile
+
 RUN (cd /rails_app && git log --format="%H" -n 1 > commit_id.txt)
 
 CMD /rails_app/scripts/docker/start.sh

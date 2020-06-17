@@ -297,10 +297,6 @@ spec:
             limits:
               memory: "700Mi"
               cpu: "1000m"
-          volumes:
-            - name: panoptes-staging-dumpworker-data
-              persistentVolumeClaim:
-              claimName: panoptes-staging-dumpworker
           args: ["/app/scripts/docker/sidekiq-start.sh"]
           env:
             - name: RAILS_ENV
@@ -435,6 +431,10 @@ spec:
               value: '1'
             - name: USER_SUBJECT_LIMIT
               value: '100'
+      volumes:
+        - name: panoptes-staging-dumpworker-data
+          persistentVolumeClaim:
+          claimName: panoptes-staging-dumpworker
 ---
 apiVersion: autoscaling/v1
 kind: HorizontalPodAutoscaler
@@ -506,9 +506,9 @@ spec:
           - name: panoptes-staging-redis-data
             mountPath: "/data"
       volumes:
-      - name: panoptes-staging-redis-data
-        persistentVolumeClaim:
-          claimName: panoptes-staging-redis
+        - name: panoptes-staging-redis-data
+          persistentVolumeClaim:
+            claimName: panoptes-staging-redis
 ---
 apiVersion: v1
 kind: Service

@@ -241,7 +241,7 @@ spec:
               cpu: "50m"
             limits:
               memory: "700Mi"
-              cpu: "500m"
+              cpu: "1000m"
           args: ["/rails_app/scripts/docker/sidekiq-start.sh"]
           envFrom:
           - secretRef:
@@ -250,10 +250,12 @@ spec:
               name: panoptes-staging-env-vars
           - configMapRef:
               name: panoptes-staging-shared
+          volumeMounts:
+          - mountPath: /tmp
+            name: panoptes-staging-dumpworker-data
       volumes:
         - name: panoptes-staging-dumpworker-data
-          persistentVolumeClaim:
-            claimName: panoptes-staging-dumpworker
+          emptyDir: {}
 ---
 kind: PersistentVolumeClaim
 apiVersion: v1

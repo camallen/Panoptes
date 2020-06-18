@@ -241,7 +241,7 @@ spec:
               cpu: "50m"
             limits:
               memory: "700Mi"
-              cpu: "1000m"
+              cpu: "500m"
           args: ["/rails_app/scripts/docker/sidekiq-start.sh"]
           envFrom:
           - secretRef:

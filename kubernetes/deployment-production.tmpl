@@ -287,11 +287,11 @@ spec:
           image: zooniverse/panoptes:__IMAGE_TAG__
           resources:
             requests:
-              memory: "1500Mi"
-              cpu: "500m"
-            limits:
-              memory: "1500Mi"
+              memory: "4000Mi"
               cpu: "1000m"
+            limits:
+              memory: "4000Mi"
+              cpu: "1500m"
           args: ["/rails_app/scripts/docker/sidekiq-start.sh"]
           envFrom:
           - secretRef:

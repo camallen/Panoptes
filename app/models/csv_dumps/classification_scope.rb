@@ -35,7 +35,7 @@ module CsvDumps
       resource.classifications
         .complete
         .joins(:workflow).where(workflows: {activated_state: "active"})
-        .includes(:user, :workflow)
+        .includes(:user, :workflow, :cached_export)
     end
 
     def setup_retirement_cache(classifications, subject_ids)

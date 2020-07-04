@@ -38,7 +38,7 @@ class ClassificationsDumpWorker
 
       @processor.execute
 
-      DumpMailer.new(resource, medium, dump_target).send_email
+      # DumpMailer.new(resource, medium, dump_target).send_email
     end
   end
 

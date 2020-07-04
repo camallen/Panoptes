@@ -38,6 +38,7 @@ Rails.application.configure do
     config.logger = ActiveSupport::TaggedLogging.new(Logger.new(STDOUT))
   end
 
+  config.log_level = :info
   config.log_tags = [:uuid]
 
   # Raises error for missing translations

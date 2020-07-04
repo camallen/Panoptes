@@ -11,7 +11,7 @@ module CsvDumps
 
     def execute
       perform_dump
-      upload_dump
+      # upload_dump
     ensure
       cleanup_dump
     end

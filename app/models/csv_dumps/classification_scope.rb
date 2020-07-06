@@ -12,8 +12,31 @@ module CsvDumps
         completed_resource_classifications.find_in_batches do |batch|
           subject_ids = setup_subjects_cache(batch)
           setup_retirement_cache(batch, subject_ids)
+          results = []
           batch.each do |classification|
-            yield classification
+            results << yield classification
+          end
+          cached_exports = results.map do |formatter|
+            CachedExport.new(resource: formatter.model, data: ClassificationExport.hash_format(formatter))
+          end
+          next unless cached_exports.empty?
+
+          # ensure we import to the primary DB
+          Standby.on_primary do
+            # bulk import the cached exports
+            import_results = CachedExport.import(cached_exports, returning: :resource_id, validate: false)
+
+            # https://github.com/zdennis/activerecord-import/#return-info
+            # ensure the order of the import results matches the id of the cached export
+            classification_upserts = []
+            import_results.each_with_index do |cached_export_id, index|
+              classification_upserts << {
+                id: import_results.results[index],
+                cached_export_id: cached_export_id
+              }
+            end
+            # bulk import the classification FK to formatted cached_export resource
+            Classification.import classification_upserts, on_duplicate_key_update: [:cached_export_id]
           end
         end
       end

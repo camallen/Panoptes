@@ -29,7 +29,8 @@ module CsvDumps
         #
         # Note: this must call with the caching formatter
         # if not we will reprocess
-        yield_block.call(caching_formatter)
+        # yield_block.call(caching_formatter)
+        caching_formatter
       end
     end
   end

@@ -22,6 +22,9 @@ class ClassificationsDumpWorker
             # dump scopes are wrapped in a read replica block by default
             # ensure these writes goto the primary db
             Standby.on_primary do
+              # TODO: these saves per record are too slow:
+              # batch bulk import these models and link the
+              # classifications up via PK via https://github.com/zdennis/activerecord-import
               classification = formatter.model
               cached_export = CachedExport.create!(
                 resource: classification,

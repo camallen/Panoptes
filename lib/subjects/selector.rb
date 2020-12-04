@@ -40,9 +40,8 @@ module Subjects
 
       if subject_ids.blank?
         subject_ids = DatabaseReplica.read('fallback_subject_selection_from_replica') do
-          fallback_limit = ENV.fetch('FALLBACK_SELECTION_LIMIT', 100)
-          opts = { subject_set_id: subject_set_id }
-          FallbackSelection.new(workflow, fallback_limit, opts).any_workflow_data
+          opts = { subject_set_id: subject_set_id }.compact
+          FallbackSelection.new(workflow, fallback_page_size_limit, opts).any_workflow_data
         end
         @selection_state = 2
       end
@@ -82,17 +81,10 @@ module Subjects
       ).select
     end
 
-    def fallback_selector
-      @fallback_selector ||= PostgresqlSelection.new(
-        workflow,
-        user,
-        { limit: subjects_page_size, subject_set_id: subject_set_id }
-      )
-    end
-
     def internal_fallback
       subject_ids = DatabaseReplica.read('fallback_subject_selection_from_replica') do
-        fallback_selector.select
+        opts = { limit: subjects_page_size, subject_set_id: subject_set_id }
+        PostgresqlSelection.new(workflow, user, opts).select
       end
 
       data_available = !subject_ids.empty?
@@ -130,6 +122,14 @@ module Subjects
       params[:page_size] ||= page_size
 
       page_size
+    end
+
+    def fallback_page_size_limit
+      fallback_limit = ENV.fetch('FALLBACK_SELECTION_LIMIT', 100)
+      # update the page_size params to ensure it flows to the serializer
+      params[:page_size] = fallback_limit
+
+      fallback_limit
     end
 
     def subject_set_id

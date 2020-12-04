@@ -83,16 +83,15 @@ RSpec.describe Subjects::Selector do
           let(:workflow) do
             create(:workflow_with_subject_set, configuration: config)
           end
+          let(:params) { { workflow_id: workflow.id } }
 
-          subject do
+          subject(:selector) do
             described_class.new(user, params)
           end
 
           context "when params page_size is missing" do
-            let(:params) { { workflow_id: workflow.id } }
-
             it 'should respect the config page_size value' do
-              subjects = subject.get_subject_ids
+              subjects = selector.get_subject_ids
               expect(subjects.length).to eq(subject_queue_page_size)
             end
           end
@@ -101,8 +100,28 @@ RSpec.describe Subjects::Selector do
             let(:params) { { page_size: params_page_size, workflow_id: workflow.id } }
 
             it 'should respect the params page_size value' do
-              subjects = subject.get_subject_ids
+              subjects = selector.get_subject_ids
               expect(subjects.length).to eq(params_page_size)
+            end
+          end
+
+          context 'when fallback selector is used' do
+            let(:workflow) do
+              create(:workflow_with_subject_set, configuration: config, finished_at: Time.now.utc)
+            end
+            let(:fallback_selector_double) { instance_double(Subjects::FallbackSelection, any_workflow_data: []) }
+
+            before do
+              allow(Subjects::FallbackSelection).to receive(:new).and_return(fallback_selector_double)
+            end
+
+            it 'respects the fallback selector value' do
+              selector.get_subject_ids
+              expect(Subjects::FallbackSelection).to have_received(:new).with(workflow, 100, {})
+            end
+
+            it 'mutates the params[:page_size] value for consitency in the serializer' do
+              expect { selector.get_subject_ids }.to change { selector.params[:page_size] }.from(nil).to(100)
             end
           end
         end
